@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                                 abstractGoogleClientRequest.setDisableGZipContent(true);
                             }
                         });
-                // end options for devappserver
 
                 myApiService = builder.build();
             }
@@ -103,7 +102,8 @@ public class MainActivity extends AppCompatActivity {
             String name = params[0].second;
 
             try {
-                return myApiService.sayHi(name).execute().getData();
+                return myApiService.getJoke().execute().getData();
+//                return myApiService.sayHi(name).execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
             }
@@ -117,5 +117,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
 }
