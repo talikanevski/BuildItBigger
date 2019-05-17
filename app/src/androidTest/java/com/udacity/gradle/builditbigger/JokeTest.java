@@ -67,7 +67,7 @@ public class JokeTest {
 //        ViewInteraction appCompatButton = onView(
 //                allOf(withText("Tell Joke"),
 //                        childAtPosition(
-//                                allOf(withId(R.id.fragment),
+//                                allOf(withId(R.id.free_fragment),
 //                                        childAtPosition(
 //                                                withId(android.R.id.content),
 //                                                0)),

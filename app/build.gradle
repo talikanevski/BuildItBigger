@@ -25,10 +25,35 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    configurations {
+        all {
+            exclude module: 'commons-logging'
+            exclude group: 'org.apache.httpcomponents'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //https://developer.android.com/studio/build/build-variants?utm_source=android-studio#product-flavors
+    // Specifies one flavor dimension.
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            // Assigns this product flavor to the "version" flavor dimension.
+            dimension "version"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+            applicationId = "com.udacity.gradle.builditbigger.free"
+
+        }
+        paid {
+            dimension "version"
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
         }
     }
 }

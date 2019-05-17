@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -58,63 +57,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view) {
 
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Natasha"));
-
-    }
-
-    public void displayJoke() {
-        Intent intent = new Intent(this, JokeActivity.class);
-//        joke = myJoke.getJoke(); if I uncomment it, it will display the joke from the library,
-        // but I feel like it have to be done via AsyncTask from MyEndpoint:
-        // try {
-        //                return myApiService.getJoke().execute().getData();
-        //            } but I don't know yet how to run it
-        intent.putExtra(JokeActivity.JOKE_KEY, joke);
-        startActivity(intent);
-    }
-
-    class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-        private MyApi myApiService = null;
-        private Context context;
-
-        @Override
-        protected String doInBackground(Pair<Context, String>... params) {
-            if(myApiService == null) {  // Only do this once
-                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
-                        new AndroidJsonFactory(), null)
-                        // options for running against local devappserver
-                        // - 10.0.2.2 is localhost's IP address in Android emulator
-                        // - turn off compression when running against local devappserver
-                        .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                        .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                            @Override
-                            public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                                abstractGoogleClientRequest.setDisableGZipContent(true);
-                            }
-                        });
-
-                myApiService = builder.build();
-            }
-
-            context = params[0].first;
-            String name = params[0].second;
-
-            try {
-                return myApiService.getJoke().execute().getData();
-//                return myApiService.sayHi(name).execute().getData();
-            } catch (IOException e) {
-                return e.getMessage();
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-            joke = result;
-            displayJoke();
-
-        }
-    }
 }
