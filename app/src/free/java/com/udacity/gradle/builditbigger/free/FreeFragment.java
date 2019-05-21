@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.androidlibrary.JokeActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.udacity.gradle.builditbigger.R;
@@ -28,6 +28,7 @@ import com.google.android.gms.ads.InterstitialAd;
 public class FreeFragment extends Fragment {
     String joke;
     private InterstitialAd mInterstitialAd;
+    private ProgressBar mProgressBar;
 
     public FreeFragment() {
     }
@@ -36,8 +37,10 @@ public class FreeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.free_fragment, container, false);
+        mProgressBar =  root.findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(View.GONE);
 
-        //banner:
+        //Banner:
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
@@ -85,6 +88,7 @@ public class FreeFragment extends Fragment {
             public void onAdClosed() {
                 // Code to be executed when the interstitial ad is closed
                 // due to the user tapping on the close icon or using the back button.
+                mProgressBar.setVisibility(View.VISIBLE);
                 tellJoke();
                 mInterstitialAd.loadAd(new AdRequest.Builder().build());
             }
@@ -99,6 +103,7 @@ public class FreeFragment extends Fragment {
                     mInterstitialAd.show();
                 } else {
                     Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    mProgressBar.setVisibility(View.VISIBLE);
                     tellJoke();}
             }
         });
@@ -107,9 +112,7 @@ public class FreeFragment extends Fragment {
     }
 
     public void tellJoke() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-            new EndpointsAsyncTask().execute(this);
-        }
+        new EndpointsAsyncTask().execute(this);
     }
 
     public void displayJoke() {
@@ -118,6 +121,7 @@ public class FreeFragment extends Fragment {
             Intent intent = new Intent(context, JokeActivity.class);
             intent.putExtra(JokeActivity.JOKE_KEY, joke);
             startActivity(intent);
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 }

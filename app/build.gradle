@@ -77,4 +77,29 @@ dependencies {
     implementation project(':androidlibrary')
 }
 
+task testTask {
+    dependsOn (['launchServer', 'runTests', 'closeServer'])
+}
+
+//Launches the GCE local development server
+//Runs all tests
+//Shuts the server down again
+task launchServer (dependsOn :':backend:appengineStart'){
+    evaluationDependsOn ':backend'
+    project(':backend').afterEvaluate { backend ->
+        backend.extensions.appengine.daemon = true
+    }
+    doLast {
+        println "started the server!"
+    }
+}
+
+task runTests (dependsOn: ':app:connectedAndroidTest') {
+    mustRunAfter 'launchServer'
+}
+
+task closeServer (dependsOn: ':backend:appengineStop'){
+    mustRunAfter 'runTests'
+}
+
 

@@ -35,6 +35,9 @@ public class PaidFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.paid_fragment, container, false);
 
+        mProgressBar =  root.findViewById(R.id.progress_bar);
+        mProgressBar.setVisibility(View.GONE);
+
         // Set onClickListener for the button
         Button button = (Button) root.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -44,8 +47,6 @@ public class PaidFragment extends Fragment {
                 tellJoke();}
         });
 
-        mProgressBar =  root.findViewById(R.id.progress_bar);
-        mProgressBar.setVisibility(View.GONE);
 
         return root;
     }
