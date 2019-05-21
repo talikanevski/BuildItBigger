@@ -18,7 +18,6 @@ import java.io.IOException;
 class EndpointsAsyncTask extends AsyncTask<FreeFragment, Void, String> {
     private MyApi myApiService = null;
     private FreeFragment freeFragment;
-
     Joke myJoke;
     String joke;
 
@@ -45,7 +44,6 @@ class EndpointsAsyncTask extends AsyncTask<FreeFragment, Void, String> {
 
         try {
             return myApiService.getJoke().execute().getData();
-//                return myApiService.sayHi(name).execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }

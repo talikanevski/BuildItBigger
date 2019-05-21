@@ -224,7 +224,5 @@
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat:25.2.0@aar" level="project" />
     <orderEntry type="module" module-name="androidlibrary" />
     <orderEntry type="module" module-name="javaLibrary" />
-    <orderEntry type="module" module-name="androidlibrary" />
-    <orderEntry type="module" module-name="javaLibrary" />
   </component>
 </module>
