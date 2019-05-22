@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.androidlibrary.JokeActivity;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.udacity.gradle.builditbigger.R;
 
 import static com.example.javalibrary.Joke.getJoke;

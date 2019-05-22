@@ -11,14 +11,12 @@ import com.example.javalibrary.Joke;
 public class MainActivity extends AppCompatActivity {
 
     Joke myJoke;
-    String joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myJoke = new Joke();
-
     }
 
     @Override
@@ -42,6 +40,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
